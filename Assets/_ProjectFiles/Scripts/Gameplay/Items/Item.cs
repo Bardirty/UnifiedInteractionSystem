@@ -6,8 +6,6 @@ public class Item : MonoBehaviour, IInteractable {
     public string ItemName => _itemName;
 
     public ItemSlot CurrentItemSlot { get; set; }
-
-    private Transform _slot;
     public bool IsInteractable => CurrentItemSlot == null;
 
     private Rigidbody _rigidbody;
@@ -17,44 +15,55 @@ public class Item : MonoBehaviour, IInteractable {
         _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
     }
-
-    public void SetSlot(Transform slot) {
-        _slot = slot;
-        if (slot == null) {
-            ReleaseSlot();
+    // Logic for attaching and detaching the item 
+    public void AttachToSlot(ItemSlot slot) {
+        if (slot == null)
             return;
-        }
-        transform.position = slot.position;
-        transform.rotation = slot.rotation;
-        transform.parent = slot;
+        CurrentItemSlot = slot;
+        AttachToTransform(slot.transform);
     }
-    public void ReleaseSlot() {
-        transform.parent = null;
-        _slot = null;
+
+    public void DetachFromSlot() {
         CurrentItemSlot = null;
+        Detach();
     }
+    // World transform attachment
+    public void AttachToTransform(Transform target) {
+        if (target == null)
+            return;
+
+        transform.SetParent(target);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+    }
+
+    public void Detach() {
+        transform.SetParent(null);
+    }
+
+
     public string GetInteractionText() {
         return _interactionText;
     }
     public bool TryGet(PlayerContext playerContext) {
-        if (playerContext.ItemHolder.TryStartInspect(this)) {
+        if (playerContext.Inspection.TryStartInspect(this)) {
             playerContext.StateMachine.ChangeState(new PlayerInspectState(playerContext));
             return true;
         }
         return false;
 
     }
-    public void InteractStart(PlayerContext playerContext) {
-        if (IsInteractable)
-            TryGet(playerContext);
-    }
-
-    public void InteractHold(PlayerContext playerContext) {}
-
-    public void InteractEnd(PlayerContext playerContext) {}
-
     public void ChangePhysics(bool isEnabled) {
         _rigidbody.isKinematic = !isEnabled;
         _collider.enabled = isEnabled;
     }
+
+
+    public void InteractStart(PlayerContext playerContext) {
+        if (IsInteractable)
+            TryGet(playerContext);
+    }
+    public void InteractHold(PlayerContext playerContext) {}
+
+    public void InteractEnd(PlayerContext playerContext) {}
 }

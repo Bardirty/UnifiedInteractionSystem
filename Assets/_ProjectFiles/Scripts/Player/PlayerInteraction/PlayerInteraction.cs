@@ -8,11 +8,15 @@ public class PlayerInteraction : MonoBehaviour {
     private PlayerInputHandler _inputHandler;
     private InteractionData _interactionData;
 
-
     private IInteractable _currentInteractable;
     private IInteractable _previousInteractable;
 
+    public IInteractable CurrentInteractable => _currentInteractable;
+
     public Action<string> OnInteractRayTouched;
+
+    private bool _interactionBlocked;
+    private string _currentInteractionText;
 
     public void Initialize(PlayerContext playerContext) {
         _playerContext = playerContext;
@@ -23,6 +27,15 @@ public class PlayerInteraction : MonoBehaviour {
     }
 
     private void Update() {
+        if (_interactionBlocked) {
+            _interactionBlocked = false;
+            return;
+        }
+
+        if (!_playerContext.CanInteract) {
+            ClearInteractables();
+            return;
+        }
         CheckForInteractables();
 
         if (_currentInteractable == null && _previousInteractable != null) {
@@ -42,11 +55,19 @@ public class PlayerInteraction : MonoBehaviour {
     private void CheckForInteractables() {
         Ray ray = new Ray(_cameraTransform.position, _cameraTransform.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, _interactionData.interactionDistance)) {
-            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
-            if (interactable != null && interactable != _currentInteractable) {
-                _previousInteractable = _currentInteractable;
-                _currentInteractable = interactable;
-                OnInteractRayTouched?.Invoke(interactable.GetInteractionText());
+            if (hit.collider.TryGetComponent(out IInteractable interactable)) {
+                string newInteractionText = interactable.GetInteractionText();
+                if (interactable != _currentInteractable) {
+                    _previousInteractable = _currentInteractable;
+                    _currentInteractable = interactable;
+
+                    _currentInteractionText = newInteractionText;
+                    OnInteractRayTouched?.Invoke(_currentInteractionText);
+                }
+                else if (newInteractionText != _currentInteractionText) {
+                    _currentInteractionText = newInteractionText;
+                    OnInteractRayTouched?.Invoke(_currentInteractionText);
+                }
             }
         }
         else {
@@ -54,11 +75,17 @@ public class PlayerInteraction : MonoBehaviour {
                 _previousInteractable = _currentInteractable;
                 _currentInteractable = null;
 
-                OnInteractRayTouched?.Invoke(string.Empty);
+                _currentInteractionText = string.Empty;
+                OnInteractRayTouched?.Invoke(_currentInteractionText);
             }
         }
     }
-
+    public void ClearInteractables() {
+        _previousInteractable = null;
+        _currentInteractable = null;
+        OnInteractRayTouched?.Invoke(string.Empty);
+    }
+    public void BlockInteractionForFrame() => _interactionBlocked = true;
     public void Interact() => _currentInteractable.InteractStart(_playerContext);
     public void InteractHold() => _currentInteractable.InteractHold(_playerContext);
     public void InteractEnd() => _currentInteractable.InteractEnd(_playerContext);

@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerStateMachine))]
 [RequireComponent(typeof(PlayerInteraction))]
 [RequireComponent(typeof(PlayerItemHolder))]
+[RequireComponent(typeof(PlayerInspection))]
 public class PlayerContext : MonoBehaviour {
     [Header("Player Configs")]
     [SerializeField] private LocomotionData _locomotionData;
@@ -27,13 +28,17 @@ public class PlayerContext : MonoBehaviour {
     public PlayerLocomotion Locomotion { get; private set; }
     public PlayerRotation Rotation { get; private set; }
     public PlayerInteraction Interaction { get; private set; }
-    public PlayerItemHolder ItemHolder { get; private set; }    
+    public PlayerItemHolder ItemHolder { get; private set; }   
+    public PlayerInspection Inspection { get; private set; }
     public PlayerStateMachine StateMachine { get; private set; }
 
     // Player object references
     public PlayerCamera Camera => _camera;
     public Transform ItemHoldPoint => _itemHoldPoint;
     public Transform InspectPoint => _inspectPoint;
+
+    // Logic Limits
+    public bool CanInteract => !Inspection.IsInspecting;
 
 
     private void Awake() {
@@ -43,6 +48,7 @@ public class PlayerContext : MonoBehaviour {
         StateMachine = GetComponent<PlayerStateMachine>();
         Interaction = GetComponent<PlayerInteraction>();
         ItemHolder = GetComponent<PlayerItemHolder>();
+        Inspection = GetComponent<PlayerInspection>();
 
         Locomotion.Initialize(_locomotionData);
         Rotation.Initialize(Camera.transform, _cameraData);

@@ -5,6 +5,11 @@ public class ItemSlot : MonoBehaviour, IInteractable {
     [SerializeField] private string _interactionTextNoItem = "Put Item";
     [SerializeField] private Item _item;
 
+    public void Start() {
+        if (_item != null) {
+            SetItem(_item);
+        }
+    }
     public string GetInteractionText() {
         return _item != null ? _interactionTextWithItem : _interactionTextNoItem;
     }
@@ -24,11 +29,11 @@ public class ItemSlot : MonoBehaviour, IInteractable {
         }
     }
     private void SetItem(Item item) {
-        if (item != null) {
-            _item = item;
-            _item.SetSlot(transform);
-            _item.CurrentItemSlot = this;
-        }
+        if (item == null)
+            return;
+
+        _item = item;
+        _item.AttachToSlot(this);
     }
 
     public void InteractStart(PlayerContext playerContext) {

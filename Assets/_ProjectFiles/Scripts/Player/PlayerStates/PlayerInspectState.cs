@@ -1,16 +1,21 @@
 public class PlayerInspectState : PlayerBaseState {
     public PlayerInspectState(PlayerContext context) : base(context) {}
 
+    private Item _inspectingItem;
     public override void Enter() {
         context.Locomotion.Stop();
-        context.ItemHolder.InspectingItem.ChangePhysics(false);
-        context.ItemHolder.InspectingItem.SetSlot(context.InspectPoint);
+        _inspectingItem = context.Inspection.InspectingItem;
+        if (_inspectingItem != null) {
+            _inspectingItem.ChangePhysics(false);
+            _inspectingItem.AttachToTransform(context.InspectPoint);
+        }
     }
     public override void Update() {
         if(context.Input.Interact.IsDown) {
-            if (!context.ItemHolder.HasItem) {
-                context.ItemHolder.ConfirmInspect();
+            if(_inspectingItem != null && context.ItemHolder.TryHoldItem(_inspectingItem)) {
+                context.Inspection.ConfirmInspect();
             }
+            context.Interaction.BlockInteractionForFrame();
             fsm.ChangeState(new PlayerIdleState(context));
         }
     }

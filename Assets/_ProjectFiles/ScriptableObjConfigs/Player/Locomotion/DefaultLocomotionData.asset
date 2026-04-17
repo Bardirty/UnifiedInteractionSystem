@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2a01bad8f32ba4f83e49a3572d540e, type: 3}
   m_Name: DefaultLocomotionData
   m_EditorClassIdentifier: Assembly-CSharp::LocomotionData
-  moveSpeed: 2
+  moveSpeed: 4
   dodgeSpeed: 5
   sprintSpeedMultiplier: 1.5
   movementDeadzone: 0.01
