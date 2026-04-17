@@ -4,6 +4,7 @@ public class PlayerInspectState : PlayerBaseState {
     private Item _inspectingItem;
     public override void Enter() {
         context.Locomotion.Stop();
+        context.LockInteraction();
         _inspectingItem = context.Inspection.InspectingItem;
         if (_inspectingItem != null) {
             _inspectingItem.ChangePhysics(false);
@@ -15,8 +16,11 @@ public class PlayerInspectState : PlayerBaseState {
             if(_inspectingItem != null && context.ItemHolder.TryHoldItem(_inspectingItem)) {
                 context.Inspection.ConfirmInspect();
             }
-            context.Interaction.BlockInteractionForFrame();
+            context.Interaction.IgnoreInputThisFrame();
             fsm.ChangeState(new PlayerIdleState(context));
         }
+    }
+    public override void Exit() {
+        context.UnlockInteraction();
     }
 }

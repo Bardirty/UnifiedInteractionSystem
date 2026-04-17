@@ -5,12 +5,12 @@ public class GUIManager : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI _interactionText;
 
     private void Start() {
-        SetCursorInGame(true);
+        SetCursor(false);
     }
 
-    private void SetCursorInGame(bool inGame) {
-        Cursor.lockState = inGame ? CursorLockMode.Locked : CursorLockMode.None;
-        Cursor.visible = !inGame;
+    public void SetCursor(bool isEnable) {
+        Cursor.lockState = !isEnable ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.visible = isEnable;
     }
 
     public void SetInteractionText(string text) {

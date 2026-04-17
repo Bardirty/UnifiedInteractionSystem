@@ -7,6 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerInteraction))]
 [RequireComponent(typeof(PlayerItemHolder))]
 [RequireComponent(typeof(PlayerInspection))]
+[RequireComponent(typeof(DialogueController))]
 public class PlayerContext : MonoBehaviour {
     [Header("Player Configs")]
     [SerializeField] private LocomotionData _locomotionData;
@@ -28,9 +29,10 @@ public class PlayerContext : MonoBehaviour {
     public PlayerLocomotion Locomotion { get; private set; }
     public PlayerRotation Rotation { get; private set; }
     public PlayerInteraction Interaction { get; private set; }
-    public PlayerItemHolder ItemHolder { get; private set; }   
+    public PlayerItemHolder ItemHolder { get; private set; }
     public PlayerInspection Inspection { get; private set; }
     public PlayerStateMachine StateMachine { get; private set; }
+    public DialogueController DialogueController { get; private set; }
 
     // Player object references
     public PlayerCamera Camera => _camera;
@@ -38,8 +40,10 @@ public class PlayerContext : MonoBehaviour {
     public Transform InspectPoint => _inspectPoint;
 
     // Logic Limits
-    public bool CanInteract => !Inspection.IsInspecting;
-
+    private bool _interactionLocked;
+    public bool CanInteract => !_interactionLocked;
+    public void LockInteraction() => _interactionLocked = true;
+    public void UnlockInteraction() => _interactionLocked = false;
 
     private void Awake() {
         Input = GetComponent<PlayerInputHandler>();
@@ -49,6 +53,7 @@ public class PlayerContext : MonoBehaviour {
         Interaction = GetComponent<PlayerInteraction>();
         ItemHolder = GetComponent<PlayerItemHolder>();
         Inspection = GetComponent<PlayerInspection>();
+        DialogueController = GetComponent<DialogueController>();
 
         Locomotion.Initialize(_locomotionData);
         Rotation.Initialize(Camera.transform, _cameraData);

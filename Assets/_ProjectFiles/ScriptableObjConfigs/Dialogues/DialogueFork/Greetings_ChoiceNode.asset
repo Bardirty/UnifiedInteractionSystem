@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ab5597d93250b42a6b5f3fe40bc137, type: 3}
+  m_Name: Greetings_ChoiceNode
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueNodeSO
+  Text: How was your day fella?
+  NextNode: {fileID: 0}
+  Choices:
+  - {fileID: 11400000, guid: 5d5db7a164f5ac549a27732d14e65694, type: 2}
+  - {fileID: 11400000, guid: e6a105a93690f37489fd9c5831b64ef7, type: 2}

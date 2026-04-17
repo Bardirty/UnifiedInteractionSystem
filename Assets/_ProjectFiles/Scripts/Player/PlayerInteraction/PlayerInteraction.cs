@@ -85,7 +85,7 @@ public class PlayerInteraction : MonoBehaviour {
         _currentInteractable = null;
         OnInteractRayTouched?.Invoke(string.Empty);
     }
-    public void BlockInteractionForFrame() => _interactionBlocked = true;
+    public void IgnoreInputThisFrame() => _interactionBlocked = true;
     public void Interact() => _currentInteractable.InteractStart(_playerContext);
     public void InteractHold() => _currentInteractable.InteractHold(_playerContext);
     public void InteractEnd() => _currentInteractable.InteractEnd(_playerContext);

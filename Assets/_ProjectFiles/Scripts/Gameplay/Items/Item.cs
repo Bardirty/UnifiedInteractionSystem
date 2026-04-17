@@ -1,9 +1,14 @@
 using UnityEngine;
 
+public enum ItemType {
+    Key,
+    Note,
+    Misc
+}
 public class Item : MonoBehaviour, IInteractable {
-    [SerializeField] private string _itemName;
+    [SerializeField] private ItemType _itemType = ItemType.Misc;
     [SerializeField] private string _interactionText = "Pick Item";
-    public string ItemName => _itemName;
+    public ItemType ItemType => _itemType;
 
     public ItemSlot CurrentItemSlot { get; set; }
     public bool IsInteractable => CurrentItemSlot == null;
@@ -54,8 +59,13 @@ public class Item : MonoBehaviour, IInteractable {
 
     }
     public void ChangePhysics(bool isEnabled) {
+        if(IsPhysicsNull())
+            return;
         _rigidbody.isKinematic = !isEnabled;
         _collider.enabled = isEnabled;
+    }
+    private bool IsPhysicsNull() {
+        return _rigidbody == null || _collider == null;
     }
 
 
