@@ -9,7 +9,7 @@ public enum DialogueNodeType {
 public class DialogueNodeSO : ScriptableObject {
     [TextArea] public string Text;
     [SerializeField] private DialogueNodeType _nodeType;
-    [SerializeField] private ItemType _questItem;
+    //[SerializeField] private ItemType _questItem;
 
     public DialogueNodeSO NextNode;
     public DialogueChoiceSO[] Choices;
@@ -17,5 +17,5 @@ public class DialogueNodeSO : ScriptableObject {
     // References
     public bool HasChoices => Choices != null && Choices.Length > 0;
     public DialogueNodeType NodeType => _nodeType;
-    public ItemType QuestItem => _questItem;
+    //public ItemType QuestItem => _questItem;
 }

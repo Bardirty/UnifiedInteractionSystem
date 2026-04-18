@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c8fd395a4efd9449804908f55488a8, type: 3}
   m_Name: DefaultCameraData
   m_EditorClassIdentifier: Assembly-CSharp::CameraData
-  cameraYawSensitivity: 1
-  cameraPitchSensitivity: 1
+  cameraYawSensitivity: 3
+  cameraPitchSensitivity: 3
   minPitch: -90
   maxPitch: 90

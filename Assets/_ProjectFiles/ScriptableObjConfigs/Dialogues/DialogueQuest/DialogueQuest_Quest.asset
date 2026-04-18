@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ab5597d93250b42a6b5f3fe40bc137, type: 3}
   m_Name: DialogueQuest_Quest
   m_EditorClassIdentifier: Assembly-CSharp::DialogueNodeSO
-  Text: I wanna that ball
+  Text: Bring me smth
   _nodeType: 1
-  _questItem: 2
   NextNode: {fileID: 0}
   Choices: []

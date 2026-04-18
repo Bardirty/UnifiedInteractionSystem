@@ -4,10 +4,10 @@ public enum ItemType {
     Key,
     Note,
     Ball,
-    Misc
+    Cube
 }
 public class Item : MonoBehaviour, IInteractable {
-    [SerializeField] private ItemType _itemType = ItemType.Misc;
+    [SerializeField] private ItemType _itemType = ItemType.Cube;
     [SerializeField] private string _description;
     [SerializeField] private string _interactionText = "Pick Item";
     public ItemType ItemType => _itemType;

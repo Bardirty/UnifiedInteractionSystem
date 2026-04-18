@@ -13,7 +13,7 @@ public class DialogueManager : MonoBehaviour {
     public event Action OnDialogueEnded;
 
     // Quest events
-    public event Action<ItemType> OnQuestRequested;
+    public event Action OnQuestRequested;
     public event Action OnQuestCompleteRequested;
     public event Action OnQuestComplete;
 
@@ -42,7 +42,7 @@ public class DialogueManager : MonoBehaviour {
             case DialogueNodeType.Default:
                 break;
             case DialogueNodeType.QuestStart:
-                OnQuestRequested?.Invoke(node.QuestItem);
+                OnQuestRequested?.Invoke();
                 break;
             case DialogueNodeType.QuestComplete:
                 OnQuestCompleteRequested?.Invoke();
