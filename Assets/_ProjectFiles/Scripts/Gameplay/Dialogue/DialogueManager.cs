@@ -15,8 +15,6 @@ public class DialogueManager : MonoBehaviour {
     // Quest events
     public event Action OnQuestRequested;
     public event Action OnQuestCompleteRequested;
-    public event Action OnQuestComplete;
-
 
     public void StartDialogue(DialogueNodeSO startNode) {
         OnDialogueStarted?.Invoke();
