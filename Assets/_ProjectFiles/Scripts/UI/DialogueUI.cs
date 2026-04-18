@@ -2,7 +2,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 public class DialogueUI : MonoBehaviour {
-    private DialogueController _controller;
+    private DialogueManager _controller;
+    [SerializeField] private GameObject _dialoguePanel;
     [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private Transform _choicesRoot;
     [SerializeField] private GameObject _choicePrefab;
@@ -10,7 +11,7 @@ public class DialogueUI : MonoBehaviour {
     private void Awake() {
         _choicesRoot.gameObject.SetActive(false);
     }
-    public void Bind(DialogueController controller) {
+    public void Bind(DialogueManager controller) {
         _controller = controller;
 
         _controller.OnTextChanged += SetText;
@@ -25,6 +26,11 @@ public class DialogueUI : MonoBehaviour {
     private void OnDestroy() {
         Unbind();
     }
+
+    public void SetDialoguePanelActive(bool isActive) {
+        _dialoguePanel.SetActive(isActive);
+    }
+
     private void SetText(string text) {
         _text.text = text;
     }

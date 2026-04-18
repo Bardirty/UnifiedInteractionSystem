@@ -13,6 +13,8 @@ public class PlayerInputHandler : MonoBehaviour
     public Vector2 MoveInput { get; private set; }
     public Vector2 LookInput { get; private set; }
     public ButtonInfo Interact { get; private set; }
+    public ButtonInfo MouseLeft { get; private set; }
+
 
     private void Awake() {
         _input = new InputSystem_Actions();
@@ -23,6 +25,7 @@ public class PlayerInputHandler : MonoBehaviour
         _input.Player.Look.canceled += _ => LookInput = Vector2.zero;
 
         BindButtonEvents(Interact = new ButtonInfo(), _input.Player.Interact);
+        BindButtonEvents(MouseLeft = new ButtonInfo(), _input.Player.MouseLeft);
     }
     private void OnEnable() {
         _input.Enable();
@@ -46,6 +49,7 @@ public class PlayerInputHandler : MonoBehaviour
     //Button Update
     private void Update() {
         UpdateButton(Interact);
+        UpdateButton(MouseLeft);
     }
 
     private void UpdateButton(ButtonInfo button) {
@@ -55,6 +59,7 @@ public class PlayerInputHandler : MonoBehaviour
     //Button LateUpdate (after successive frames)
     private void LateUpdate() {
         LateUpdateButton(Interact);
+        LateUpdateButton(MouseLeft);
     }
     private void LateUpdateButton(ButtonInfo button) {
         button.IsDown = false;

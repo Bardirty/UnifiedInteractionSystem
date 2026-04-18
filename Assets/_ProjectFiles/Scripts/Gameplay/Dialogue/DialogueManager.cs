@@ -1,15 +1,22 @@
 using System;
 using UnityEngine;
 
-public class DialogueController : MonoBehaviour {
+public class DialogueManager : MonoBehaviour {
     private DialogueNodeSO _currentNode;
 
     public bool IsActive => _currentNode != null;
 
+    // Standard dialogue events
     public event Action OnDialogueStarted;
     public event Action<string> OnTextChanged;
     public event Action<DialogueChoiceSO[]> OnChoicesChanged;
     public event Action OnDialogueEnded;
+
+    // Quest events
+    public event Action<ItemType> OnQuestRequested;
+    public event Action OnQuestCompleteRequested;
+    public event Action OnQuestComplete;
+
 
     public void StartDialogue(DialogueNodeSO startNode) {
         OnDialogueStarted?.Invoke();
@@ -17,14 +24,30 @@ public class DialogueController : MonoBehaviour {
     }
 
     private void SetNode(DialogueNodeSO node) {
+        if (node == null)
+            return;
         _currentNode = node;
 
         OnTextChanged?.Invoke(node.Text);
-        
+
+        HandleNodeLogic(node);
+
         if (node.HasChoices)
             OnChoicesChanged?.Invoke(node.Choices);
         else
             OnChoicesChanged?.Invoke(null);
+    }
+    private void HandleNodeLogic(DialogueNodeSO node) {
+        switch (node.NodeType) {
+            case DialogueNodeType.Default:
+                break;
+            case DialogueNodeType.QuestStart:
+                OnQuestRequested?.Invoke(node.QuestItem);
+                break;
+            case DialogueNodeType.QuestComplete:
+                OnQuestCompleteRequested?.Invoke();
+                break;
+        }
     }
 
     public void SelectChoice(int index) {

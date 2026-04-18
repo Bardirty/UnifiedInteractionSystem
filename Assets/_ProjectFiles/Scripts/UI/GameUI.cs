@@ -1,7 +1,8 @@
 using UnityEngine;
 using TMPro;
 
-public class GUIManager : MonoBehaviour {
+public class GameUI : MonoBehaviour {
+    [SerializeField] private GameObject guiPanel;
     [SerializeField] private TextMeshProUGUI _interactionText;
 
     private void Start() {
@@ -11,6 +12,10 @@ public class GUIManager : MonoBehaviour {
     public void SetCursor(bool isEnable) {
         Cursor.lockState = !isEnable ? CursorLockMode.Locked : CursorLockMode.None;
         Cursor.visible = isEnable;
+    }
+    public void ToggleGUI(bool isEnable) {
+        guiPanel.SetActive(isEnable);
+        SetCursor(isEnable);
     }
 
     public void SetInteractionText(string text) {

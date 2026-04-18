@@ -1,12 +1,12 @@
 public class PlayerDialogueState : PlayerBaseState {
-    private DialogueController _dialogue;
+    private DialogueManager _dialogue;
 
     public PlayerDialogueState(PlayerContext context) : base(context) { }
 
     public override void Enter() {
         context.Locomotion.Stop();
 
-        _dialogue = context.DialogueController;
+        _dialogue = context.DialogueManager;
 
         context.LockInteraction();
 

@@ -5,8 +5,8 @@ public class PlayerInspection : MonoBehaviour {
     public Item InspectingItem { get; private set; }
     public bool IsInspecting { get; private set; }
 
-    public event Action<Item> OnStartInspect;
-    public event Action OnEndInspect;
+    public event Action<Item> OnInspectStarted;
+    public event Action OnInspectEnded;
 
     public bool TryStartInspect(Item item) {
         if (item == null || IsInspecting)
@@ -14,7 +14,7 @@ public class PlayerInspection : MonoBehaviour {
 
         InspectingItem = item;
         IsInspecting = true;
-        OnStartInspect?.Invoke(item);
+        OnInspectStarted?.Invoke(item);
         return true;
     }
     public void ConfirmInspect() {
@@ -22,7 +22,7 @@ public class PlayerInspection : MonoBehaviour {
             return;
         InspectingItem = null;
         IsInspecting = false;
-        OnEndInspect?.Invoke();
+        OnInspectEnded?.Invoke();
     }
 
 }

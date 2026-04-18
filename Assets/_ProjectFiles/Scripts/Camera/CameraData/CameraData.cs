@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewCameraData", menuName = "Camera/CameraData")]
+[CreateAssetMenu(fileName = "DefaultCameraData", menuName = "Camera/Camera Data")]
 public class CameraData : ScriptableObject {
     public float cameraYawSensitivity = 1f;
     public float cameraPitchSensitivity = 1f;

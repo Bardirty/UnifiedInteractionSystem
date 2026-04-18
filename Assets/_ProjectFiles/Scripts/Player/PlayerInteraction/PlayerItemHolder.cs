@@ -18,7 +18,7 @@ public class PlayerItemHolder : MonoBehaviour {
         CurrentItem = item;
         CurrentItem.DetachFromSlot();
         CurrentItem.ChangePhysics(false);
-        CurrentItem.AttachToTransform(_itemHoldPoint);
+        CurrentItem.SmoothAttachToTransform(_itemHoldPoint);
         return true; 
     }
     public void DropCurrentItem() {

@@ -124,9 +124,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6783f0359e70dea429de4bc5a248c324, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  _itemName: Sphere
+  _itemType: 3
+  _description: 
   _interactionText: Pick Item
---- !u!1 &5396053380509653005
+--- !u!1 &4550734612715549112
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -134,48 +135,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8486186422308809325}
-  - component: {fileID: 20078728646588362}
-  - component: {fileID: 179888906721553633}
-  - component: {fileID: 5403672175406069380}
+  - component: {fileID: 4828859075769007888}
+  - component: {fileID: 880929356791641790}
+  - component: {fileID: 6554762713525594404}
   m_Layer: 0
-  m_Name: Stand
+  m_Name: StandVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8486186422308809325
+--- !u!4 &4828859075769007888
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5396053380509653005}
+  m_GameObject: {fileID: 4550734612715549112}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.71, y: 0.42, z: 21.15}
+  m_LocalPosition: {x: 0.146, y: 0.211, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4888892064463143431}
-  m_Father: {fileID: 0}
+  m_Children: []
+  m_Father: {fileID: 8486186422308809325}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &20078728646588362
+--- !u!33 &880929356791641790
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5396053380509653005}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &179888906721553633
+  m_GameObject: {fileID: 4550734612715549112}
+  m_Mesh: {fileID: -7553716758358721678, guid: 9786d89b3b98ae44baca280237b69798, type: 3}
+--- !u!23 &6554762713525594404
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5396053380509653005}
+  m_GameObject: {fileID: 4550734612715549112}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -194,7 +193,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: -4963801623029300775, guid: 344c22d9d460de048acc720929dcb5a5, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -217,6 +216,40 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5396053380509653005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8486186422308809325}
+  - component: {fileID: 5403672175406069380}
+  m_Layer: 0
+  m_Name: Stand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8486186422308809325
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5396053380509653005}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.71, y: 0.42, z: 21.15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4888892064463143431}
+  - {fileID: 4828859075769007888}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &5403672175406069380
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -265,7 +298,7 @@ Transform:
   m_GameObject: {fileID: 5438113740196921032}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0}
+  m_LocalPosition: {x: 0, y: 0.704, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
