@@ -5,132 +5,81 @@
 
 # Unity Unified Interaction System
 
+## 🎬 Demo
+![Video](./README_Assets/gameplay.gif)
+
+---
+
 ## 📌 Overview
 
-This project is a 3D interactive scene developed in Unity (**6000.2.6f2**) as a test assignment.
-It demonstrates a modular interaction system, inventory handling, dialogue system, and additional gameplay mechanics.
-
----
-
-## ▶ How to Run
-
-1. Open project in Unity Hub (version 6000.2.6f2)
-2. Load the game scene:
-
-Assets/_ProjectFiles/Scenes/GameScene.unity
-
-3. Press Play
-
-Alternatively, a build can be run from the provided executable (if included).
-
----
-
-## 🎮 Controls
-
-* **WASD** — Move
-* **Mouse** — Look around
-* **E (Press)** — Interact
-* **E (Hold)** — Continuous interaction (e.g. valve)
-* **Mouse Hold (LMB)** — Rotate inspected item
+This project was created as a test assignment to explore building a modular interaction system in Unity.
+The goal was not just to implement features, but to structure them in a way that keeps systems decoupled and easy to extend.
 
 ---
 
 ## ⚙️ Core Features
-
-### 🔹 Interaction System
-
-* Unified interaction via a single key (**E**)
-* Supports:
-
-  * Press
-  * Hold
-  * Release
-* Context-sensitive UI hint:
-
-  ```
-  E — [Action]
-  ```
+- Unified interaction system (press / hold / release)
+- Item inspection and inventory handling
+- Dialogue system (linear and branching)
+- Quest system with item validation
+- Interactive world objects (valve, chest, button)
 
 ---
 
-### 🔹 Item System
-
-* Player can hold **only one item at a time**
-* Items can be:
-
-  * Inspected (with smooth transition)
-  * Rotated with mouse
-  * Picked up / placed back into slots
-
-#### Implemented Items:
-
-* **Key** — used to open chest
-* **Note** — unfolds with animation during inspection
-* **Custom Item** — used in quest system
+## 🧠 Architecture Overview
+The project is structured around several independent systems:
+- **Player layer** — handles input and state (FSM)
+- **Gameplay systems** — Dialogue, Quest, Interaction
+- **UI layer** — reacts to gameplay events
+Systems do not directly depend on each other.  
+Communication is handled through events to reduce coupling.
 
 ---
 
-### 🔹 Inspection System
-
-* Smooth item transition to inspect position
-* Mouse-based rotation
-* UI description display
-* Dedicated inspection state (FSM-based)
-
----
-
-### 🔹 NPC & Dialogue System
-
-* Supports:
-
-  * **Linear dialogue**
-  * **Branching dialogue with choices**
-
-#### Quest Dialogue:
-
-* NPC requests a **random item** (excluding key and note)
-* Quest UI appears in top-right corner
-* Completion updates UI with a checkmark
+## 🧠 Design Decisions
+- **IInteractable interface**  
+  Provides a single entry point for all interactions, making it easy to extend the system.
+- **Finite State Machine (FSM)**  
+  Used to clearly separate player behaviors (movement, dialogue, inspection).
+- **Event-driven communication**  
+  Dialogue, Quest and UI systems communicate through events instead of direct references.
+- **ScriptableObjects for configuration**  
+  Used to keep data editable without modifying code.
 
 ---
 
-### 🔹 Quest System
-
-* Random item selection via `QuestManager`
-* Event-driven architecture
-* Item validation on delivery
-* Integrated with dialogue system
+## ⚖️ Trade-offs
+- A full dependency injection setup was intentionally avoided to keep the project simple.
+- `PlayerContext` acts as a central access point, which simplifies integration but increases coupling.
+- Some systems are still tied to MonoBehaviour and could be further decoupled.
 
 ---
 
-### 🔹 Chest System
-
-* Opens **only if player holds a key**
-* Key is consumed upon use
-* Incorrect interaction triggers feedback animation
-
----
-
-### 🔹 Valve Mechanism
-
-* Requires **holding E**
-* Rotates valve and opens door proportionally
-* Returns to initial state smoothly when released
+## ⚠️ Limitations
+- No save/load system
+- Limited separation between runtime logic and Unity components
+- Project scale is small, so some architectural decisions are simplified
 
 ---
 
-### 🔹 Custom Interaction (Extra Feature)
-
-* Interactive **button**
-* Event-driven system (`OnButtonPressed`)
-* Triggers external systems (e.g. fireworks)
+## ▶ How to Run
+1. Open the project in Unity Hub (6000.2.6f2)
+2. Load the scene:
+`Assets/_ProjectFiles/Scenes/GameScene.unity`
+3. Press Play
 
 ---
 
-## 🏗️ Architecture
+## 🎮 Controls
+- **WASD** — Move  
+- **Mouse** — Look  
+- **E (Press)** — Interact  
+- **E (Hold)** — Continuous interaction  
+- **Mouse Hold (LMB)** — Rotate inspected item  
 
-Project follows **feature-based structure**:
+---
 
+## 🏗️ Project Structure
 ```
 _ProjectFiles/
     Player/
@@ -140,59 +89,12 @@ _ProjectFiles/
     UI/
     Items/
 ```
-
-### Key Principles:
-
-* Separation of concerns
-* Event-driven communication
-* Finite State Machine (Player states)
-* ScriptableObjects for configuration
-* Minimal coupling between systems
-
----
-
-## 🧩 Notable Systems
-
-* **PlayerContext** — central access point for player components
-* **IInteractable** — unified interaction interface
-* **FSM (State Machine)** — controls player states
-* **Bootstrap** — binds systems together
-* **ScriptableObjects** — configurable parameters
-
----
-
-## 🎯 Additional Polish
-
-* Smooth item transitions
-* Animated note (book-like unfolding)
-* UI feedback for interactions
-* Firework effect as bonus interaction
-
----
-
-## 🧠 Design Decisions
-
-- Interaction system is built around a single interface (`IInteractable`) to ensure scalability and consistency.
-- Player logic is handled via a finite state machine to clearly separate behaviors (movement, inspection, dialogue).
-- Systems communicate using events to reduce coupling between gameplay features.
-- ScriptableObjects are used for configuration to allow easy tuning without modifying code.
-
----
-
-## 📦 Unity Version
-
-```
-Unity 6000.2.6f2 (project was developed and tested using this version)
-```
-
 ---
 
 ## ⏱ Development Time
-
-~2-3 days
+~2–3 days
 
 ---
 
 ## 📝 Notes
-
-The project focuses on clean architecture, modular systems, and extensibility rather than visual fidelity.
+The focus of this project is system design and interaction architecture rather than visual polish.
